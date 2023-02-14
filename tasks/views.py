@@ -48,14 +48,14 @@ def signup(request):
 def tasks(request):
     # devuelve todos los objetos de la bd
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'tasks.html', {'tasks': tasks})
+    return render(request, 'tasks.html', {'tasks': tasks, 'state': 'Pending'})
 
 
 @login_required
 def tasks_completed(request):
     tasks = Task.objects.filter(
         user=request.user, datecompleted__isnull=False).order_by('-datecompleted')
-    return render(request, 'tasks.html', {'tasks': tasks})
+    return render(request, 'tasks.html', {'tasks': tasks, 'state': 'Completed'})
 
 
 @login_required
